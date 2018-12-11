@@ -1,8 +1,5 @@
 const { normalizeMustache } = require('../helpers');
 
-const EVENT_MAPPING = {
-  tap: 'click'
-};
 const EVENT_REG = /^on[A-Z]/;
 const IS_EVENT_BINDING_REG = /{{(.*)}}/;
 
@@ -21,12 +18,11 @@ function transformNode(node) {
   for (let i = 0, l = attrsList.length; i < l; i++) {
     let { name, value } = attrsList[i];
     if (EVENT_REG.test(name)) {
-      let rawEvtName = name.slice(2);
-      if (rawEvtName.length > 0) {
-        rawEvtName = rawEvtName[0].toLowerCase() + rawEvtName.slice(1);
+      let evtName = name.slice(2);
+      if (evtName.length > 0) {
+        evtName = evtName[0].toLowerCase() + evtName.slice(1);
       }
 
-      const evtName = EVENT_MAPPING[rawEvtName] || rawEvtName;
       toSplice.push(i);
 
       // Gen handler
