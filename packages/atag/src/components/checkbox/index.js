@@ -54,13 +54,11 @@ export default class CheckboxElement extends PolymerElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('click', this._handleClick);
     window.addEventListener('_formReset', this._handlerReset, true);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('click', this._handleClick);
     window.removeEventListener('_formReset', this._handlerReset, true);
   }
 
@@ -73,13 +71,6 @@ export default class CheckboxElement extends PolymerElement {
         break;
       }
       parentElement = parentElement.parentElement;
-    }
-  };
-
-  _handleClick = e => {
-    e.stopPropagation();
-    if (!this.disabled) {
-      this.checked = !this.checked;
     }
   };
 

@@ -20,25 +20,30 @@ export default class CheckboxGroupElement extends PolymerElement {
     };
   }
 
-  ready() {
-    super.ready();
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('_checkboxChange', this.changeHandler);
   }
 
-  changeHandler = e => {
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    console.log(1111);
+
+    this.removeEventListener('_checkboxChange', this.changeHandler);
+  }
+
+  changeHandler = (evt) => {
     const value = [];
     const checkboxList = this.querySelectorAll('a-checkbox');
     for (let i = 0; i < checkboxList.length; i++) {
       const node = checkboxList[i];
-      node.isChecked && value.push(node.value);
+      node.checked && value.push(node.value);
     }
     const event = new CustomEvent('change', {
-      detail: {
-        value
-      }
+      detail: { value },
     });
     this.dispatchEvent(event);
-    e.stopPropagation();
+    evt.stopPropagation();
   };
 
   disconnectedCallback() {
