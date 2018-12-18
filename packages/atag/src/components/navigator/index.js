@@ -1,4 +1,4 @@
-import { PolymerElement, html } from '@polymer/polymer';
+import { PolymerElement } from '@polymer/polymer';
 
 class Navigator extends PolymerElement {
   static get is() {
@@ -15,8 +15,8 @@ class Navigator extends PolymerElement {
     };
   }
 
-  ready() {
-    super.ready();
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('click', this.handleClick);
     this.addEventListener('touchstart', this.handleTouchStart);
     this.addEventListener('touchend', this.handleTouchEnd);
@@ -64,14 +64,6 @@ class Navigator extends PolymerElement {
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('touchstart', this.handleTouchStart);
     this.removeEventListener('touchend', this.handleTouchEnd);
-  }
-
-  static get template() {
-    return html`
-    <span>
-      <slot></slot>
-    </span>
-    `;
   }
 }
 
