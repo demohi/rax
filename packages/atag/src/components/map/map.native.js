@@ -192,8 +192,11 @@ export default class NativeMap extends PolymerElement {
     }
 
     if (paramRef) {
-      paramRef.setAttribute('value', value);
-      paramRef.setAttribute('data-timestamp', Date.now());
+      const hasDifference = value !== paramRef.getAttribute('value');
+      if (hasDifference) {
+        paramRef.setAttribute('value', value);
+        paramRef.setAttribute('data-timestamp', Date.now());
+      }
       /**
        * NOTE: In android, we should call WindVane to
        * notify native to update param value.
